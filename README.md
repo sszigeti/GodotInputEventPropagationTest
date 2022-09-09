@@ -9,3 +9,5 @@ The problem is that for this Godot seems to require the HoverTrigger node to be 
 What's the official way to make the HoverTrigger node _not absorb_ all input events? Or is there a way to re-emit the received input event somehow?
 
 The project requires Godot 3.5 or newer as I'm using "scene unique names".
+
+![Screenshot](screenshot.png)
