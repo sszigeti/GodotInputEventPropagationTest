@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://InputEventPropagationTest.gd" type="Script" id=1]
+
+[node name="InputEventPropagationTest" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 580.0
+custom_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 300.0
+margin_bottom = 560.0
+custom_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 270.0
+size_flags_vertical = 3
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "The desired node layout which doesn't work:"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+margin_top = 19.0
+margin_right = 300.0
+margin_bottom = 270.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 251.0
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+margin_right = 300.0
+margin_bottom = 251.0
+mouse_filter = 2
+
+[node name="HoverTrigger" type="ColorRect" parent="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer/Control"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 110.0
+margin_bottom = 110.0
+mouse_filter = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 290.0
+margin_right = 300.0
+margin_bottom = 560.0
+size_flags_vertical = 3
+custom_constants/separation = 5
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "The required, but NOT desired node layout:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 19.0
+margin_right = 300.0
+margin_bottom = 270.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2"]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 251.0
+size_flags_vertical = 3
+
+[node name="HoverTrigger2" type="ColorRect" parent="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2/Button2"]
+unique_name_in_owner = true
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 110.0
+margin_bottom = 110.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 320.0
+margin_right = 984.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "The problem: I'd like to detect the mouse hovering over the white trigger area, AND I'd like to also respond to mouse press on the Button, even over the white trigger, WITHOUT having to have the \"HoverTrigger\" node inside the \"Button\" node (2nd example)."
+autowrap = true
+
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_Button_button_changed" binds= [ 1, true ]]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_Button_button_changed" binds= [ 1, false ]]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer/Control/HoverTrigger" to="." method="_on_HoverTrigger_hover_changed" binds= [ 1, true ]]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/VBoxContainer/MarginContainer/Control/HoverTrigger" to="." method="_on_HoverTrigger_hover_changed" binds= [ 1, false ]]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2/Button2" to="." method="_on_Button_button_changed" binds= [ 2, true ]]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2/Button2" to="." method="_on_Button_button_changed" binds= [ 2, false ]]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2/Button2/HoverTrigger2" to="." method="_on_HoverTrigger_hover_changed" binds= [ 2, true ]]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/VBoxContainer2/MarginContainer2/Button2/HoverTrigger2" to="." method="_on_HoverTrigger_hover_changed" binds= [ 2, false ]]
